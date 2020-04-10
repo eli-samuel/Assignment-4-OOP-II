@@ -5,6 +5,8 @@ import java.io.FileOutputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
+//https://medium.com/factory-mind/regex-tutorial-a-simple-cheatsheet-by-examples-649dc1c3f285
+
 public class SubDictionary {
 
     public static void main(String[] args) {
@@ -23,8 +25,8 @@ public class SubDictionary {
             while (input.hasNext()) {
 
                 String word = input.next()/*.trim()????*/;
-                if (word.contains("’")) word = word.substring(0, word.indexOf("’"));
-                word = word.replaceAll("[’'.?,!:;]$", "").toUpperCase();
+                //if (word.contains("’")) word = word.substring(0, word.indexOf("’"));
+                word = word.replaceAll("(’[ms])$|[’'.?,!:;]$", "").toUpperCase();
                 if (word.matches("([^\\d])+") && !word.matches("^[^A^I]$") && !dict.contains(word)) {
                     dict.add(word);
                 }
@@ -32,10 +34,12 @@ public class SubDictionary {
             dict.sort(null);
             output.println("There are " + dict.size() + " entries in this sub-dictionary.");
 
-            char letter = 65;
-            while (letter-65 < dict.size) {
-                output.println(letter + "\n===");
-                output.println(dict);
+            char letter = 64;
+
+            int i=0;
+            while (i < dict.size()) {
+                if (dict.get(i).charAt(0) != letter) output.println("\n" + ++letter + "\n===");
+                output.println(dict.get(i++));
             }
         }
         catch(FileNotFoundException e) {
@@ -53,7 +57,7 @@ public class SubDictionary {
     public static String start() {
         Scanner in = new Scanner(System.in);
         System.out.print("Enter file name: ");
-        //return in.next();
+        //  return in.next();
         return "PersonOfTheCentury.txt";
     }
 }
