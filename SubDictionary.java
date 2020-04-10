@@ -61,6 +61,3 @@ public class SubDictionary {
         return "PersonOfTheCentury.txt";
     }
 }
-
-//word = word.replaceAll("(?i)([\\.\\?\\,\\!\\:\\;]$|(\\WS)|(\\WM))", "").toUpperCase();
-//word.matches("((?i)([^0-9]{2,})|(mc²)|(^i$)|(^a$))") && !dict.contains(word)
