@@ -25,7 +25,6 @@ public class SubDictionary {
             while (input.hasNext()) {
 
                 String word = input.next()/*.trim()????*/;
-                //if (word.contains("’")) word = word.substring(0, word.indexOf("’"));
                 word = word.replaceAll("(’[ms])$|[’'.?,!:;]$", "").toUpperCase();
                 if (word.matches("([^\\d])+") && !word.matches("^[^A^I]$") && !dict.contains(word)) {
                     dict.add(word);
@@ -57,7 +56,7 @@ public class SubDictionary {
     public static String start() {
         Scanner in = new Scanner(System.in);
         System.out.print("Enter file name: ");
-        //  return in.next();
-        return "PersonOfTheCentury.txt";
+        return in.next();
+        // return "PersonOfTheCentury.txt";
     }
 }
