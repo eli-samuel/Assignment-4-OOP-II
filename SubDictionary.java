@@ -5,8 +5,6 @@ import java.io.FileOutputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
-//https://medium.com/factory-mind/regex-tutorial-a-simple-cheatsheet-by-examples-649dc1c3f285
-
 public class SubDictionary {
 
     public static void main(String[] args) {
