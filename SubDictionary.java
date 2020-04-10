@@ -20,7 +20,7 @@ public class SubDictionary {
 
         try {
             input = new Scanner(new FileInputStream(filename));
-            output = new PrintWriter(new FileOutputStream("subdictionary.txt"));
+            output = new PrintWriter(new FileOutputStream("SubDictionary.txt"));
 
             while (input.hasNext()) {
 
@@ -48,9 +48,8 @@ public class SubDictionary {
             if (input != null) input.close();
             if (output != null) output.close();
         }
-        dict.sort(null);
-        System.out.println("There are " + dict.size() + " entries in this sub-dictionary.");
-        System.out.println(dict);
+        // System.out.println("There are " + dict.size() + " entries in this sub-dictionary.");
+        // System.out.println(dict);
     }
 
     public static String start() {
