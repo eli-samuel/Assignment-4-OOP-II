@@ -7,10 +7,8 @@ import java.io.FileNotFoundException;
 
 public class SubDictionary {
 
-    public static void main(String[] args) {
-        Scanner in = new Scanner(System.in);
+    public static void main(String[] args) {;
         System.out.print("Enter file name: \n");
-        String filename = "PersonOfTheCentury.txt";
 
         ArrayList<String> dict = new ArrayList<String>();
 
@@ -18,7 +16,7 @@ public class SubDictionary {
         PrintWriter output = null;
 
         try {
-            input = new Scanner(new FileInputStream(filename));
+            input = new Scanner(new FileInputStream(/*new Scanner(System.in).next()*/"PersonOfTheCentury.txt"));
             output = new PrintWriter(new FileOutputStream("SubDictionary.txt"));
 
             while (input.hasNext()) {
