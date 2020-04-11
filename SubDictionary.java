@@ -10,7 +10,6 @@ public class SubDictionary {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         System.out.print("Enter file name: \n");
-
         String filename = "PersonOfTheCentury.txt";
 
         ArrayList<String> dict = new ArrayList<String>();
@@ -23,7 +22,7 @@ public class SubDictionary {
             output = new PrintWriter(new FileOutputStream("SubDictionary.txt"));
 
             while (input.hasNext()) {
-                String word = input.next().replaceAll("(’[ms])$|[ï¿½'.?,!:;]$", "").toUpperCase();
+                String word = input.next().replaceAll("(’[ms])$|[’'.?,!:;]$", "").toUpperCase();
                 if (word.matches("([^\\d])+") && !word.matches("^[^A^I]$") && !dict.contains(word)) dict.add(word);
             }
             dict.sort(null);
