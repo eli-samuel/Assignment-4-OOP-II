@@ -22,8 +22,8 @@ public class SubDictionary {
 
             while (input.hasNext()) {
 
-                String word = input.next()/*.trim()????*/;
-                word = word.replaceAll("(’[ms])$|[’'.?,!:;]$", "").toUpperCase();
+                String word = input.next();
+                word = word.replaceAll("(’[ms])$|[ï¿½'.?,!:;]$", "").toUpperCase();
                 if (word.matches("([^\\d])+") && !word.matches("^[^A^I]$") && !dict.contains(word)) {
                     dict.add(word);
                 }
@@ -32,11 +32,9 @@ public class SubDictionary {
             output.println("There are " + dict.size() + " entries in this sub-dictionary.");
 
             char letter = 64;
-
-            int i=0;
-            while (i < dict.size()) {
-                if (dict.get(i).charAt(0) != letter) output.println("\n" + ++letter + "\n===");
-                output.println(dict.get(i++));
+            for (String word : dict) {
+                if (word.charAt(0) != letter) output.println("\n" + ++letter + "\n===");
+                output.println(word);
             }
         }
         catch(FileNotFoundException e) {
@@ -46,14 +44,12 @@ public class SubDictionary {
             if (input != null) input.close();
             if (output != null) output.close();
         }
-        // System.out.println("There are " + dict.size() + " entries in this sub-dictionary.");
-        // System.out.println(dict);
     }
 
     public static String start() {
         Scanner in = new Scanner(System.in);
-        System.out.print("Enter file name: ");
-        return in.next();
-        // return "PersonOfTheCentury.txt";
+        System.out.print("Enter file name: \n");
+        //return in.next();
+        return "PersonOfTheCentury.txt";
     }
 }
