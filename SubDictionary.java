@@ -23,11 +23,8 @@ public class SubDictionary {
             output = new PrintWriter(new FileOutputStream("SubDictionary.txt"));
 
             while (input.hasNext()) {
-
-                String word = input.next();
-                word = word.replaceAll("(’[ms])$|[ï¿½'.?,!:;]$", "").toUpperCase();
+                String word = input.next().replaceAll("(’[ms])$|[ï¿½'.?,!:;]$", "").toUpperCase();
                 if (word.matches("([^\\d])+") && !word.matches("^[^A^I]$") && !dict.contains(word)) dict.add(word);
-
             }
             dict.sort(null);
             output.println("There are " + dict.size() + " entries in this sub-dictionary.");
@@ -38,9 +35,7 @@ public class SubDictionary {
                 output.println(word);
             }
         }
-        catch(FileNotFoundException e) {
-            System.out.println(e.getMessage());
-        }
+        catch(FileNotFoundException e) { System.out.println(e.getMessage()); }
         finally {
             if (input != null) input.close();
             if (output != null) output.close();
