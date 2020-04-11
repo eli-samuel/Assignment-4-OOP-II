@@ -8,8 +8,10 @@ import java.io.FileNotFoundException;
 public class SubDictionary {
 
     public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        System.out.print("Enter file name: \n");
 
-        String filename = start();
+        String filename = "PersonOfTheCentury.txt";
 
         ArrayList<String> dict = new ArrayList<String>();
 
@@ -24,9 +26,8 @@ public class SubDictionary {
 
                 String word = input.next();
                 word = word.replaceAll("(’[ms])$|[ï¿½'.?,!:;]$", "").toUpperCase();
-                if (word.matches("([^\\d])+") && !word.matches("^[^A^I]$") && !dict.contains(word)) {
-                    dict.add(word);
-                }
+                if (word.matches("([^\\d])+") && !word.matches("^[^A^I]$") && !dict.contains(word)) dict.add(word);
+
             }
             dict.sort(null);
             output.println("There are " + dict.size() + " entries in this sub-dictionary.");
@@ -44,12 +45,5 @@ public class SubDictionary {
             if (input != null) input.close();
             if (output != null) output.close();
         }
-    }
-
-    public static String start() {
-        Scanner in = new Scanner(System.in);
-        System.out.print("Enter file name: \n");
-        //return in.next();
-        return "PersonOfTheCentury.txt";
     }
 }
