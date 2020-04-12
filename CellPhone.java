@@ -66,7 +66,7 @@ public class CellPhone{
         else{
             CellPhone c = (CellPhone) o;
 
-            return(this.brand.equals(c.brand) && this.year == c.year && this.price == c.price)
+            return(this.brand.equals(c.brand) && this.year == c.year && this.price == c.price);
         }
         
     }
