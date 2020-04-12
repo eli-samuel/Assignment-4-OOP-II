@@ -19,35 +19,34 @@ public class CellPhone{
         this.price = c.price;
     }
 
-	public long getSerialNum() {
+    public long getSerialNum() {
 		return serialNum;
 	}
-
-	public void setSerialNum(long serialNum) {
+    public void setSerialNum(long serialNum) {
 		this.serialNum = serialNum;
 	}
 
-	public String getBrand() {
+    public String getBrand() {
 		return brand;
 	}
 
-	public void setBrand(String brand) {
+    public void setBrand(String brand) {
 		this.brand = brand;
 	}
 
-	public int getYear() {
+    public int getYear() {
 		return year;
 	}
 
-	public void setYear(int year) {
+    public void setYear(int year) {
 		this.year = year;
 	}
 
-	public double getPrice() {
+    public double getPrice() {
 		return price;
 	}
 
-	public void setPrice(double price) {
+    public void setPrice(double price) {
 		this.price = price;
 	}
 
