@@ -175,7 +175,7 @@ public class CellList {
             else {
                 CellNode pos = head;
                 CellNode otherPos = cList.head;
-                while (pos != null) {
+                while (pos.next != null) {
                     if (!(pos.phone.equals(otherPos.phone))) return false;
                     pos = pos.next;
                     otherPos = otherPos.next;

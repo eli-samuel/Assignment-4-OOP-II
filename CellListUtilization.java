@@ -85,7 +85,6 @@ public class CellListUtilization {
         System.out.println("List 1 is " + (list1.equals(list2) ? "" : "not") + " equal to list2");
         list2 = new CellList(list1);
         System.out.println("List 1 is " + (list1.equals(list2) ? "" : "not") + " equal to list2");
-        //list1.show();
 
     }
 }
