@@ -2,7 +2,7 @@ import java.util.NoSuchElementException;
 
 public class CellList {
 
-    private class CellNode {
+    public class CellNode {
         private CellPhone phone;
         private CellNode next;
 
@@ -12,14 +12,14 @@ public class CellList {
         }
 
         // do we have to do this.phone = new Phone(phone) amd same for next?
-        public CellNode(CellPhone phone, CellNode next) {
+        private CellNode(CellPhone phone, CellNode next) {
             this.phone = phone;
             this.next = next;
         }
 
         public CellNode(CellNode c) {
-            phone = new CellPhone(c.phone);
-            next = new CellNode(c.next);
+            phone = new CellPhone(c.phone, c.phone.getSerialNum());
+            next = new CellNode(c.phone, c.next);
         }
 
         public CellNode clone() {
@@ -89,13 +89,13 @@ public class CellList {
     }
 
     public void insertAtIndex(CellPhone c, int i) throws NoSuchElementException {
-        if (i >= size) throw new NoSuchElementException();
+        if (i >= size) throw new NoSuchElementException("Error: Invalid index " + i);
 
         CellNode newNode = new CellNode(c, null);
         CellNode curr = head;
         CellNode prev = head;
 
-        for (int n = 0; n<=i; n++) {
+        for (int n = 0; n<i; n++) {
             prev = curr;
             curr = curr.next;
         }
@@ -107,12 +107,12 @@ public class CellList {
     }
 
     public void deleteFromIndex(int i) throws NoSuchElementException {
-        if (i >= size) throw new NoSuchElementException();
+        if (i >= size) throw new NoSuchElementException("Error: Invalid index " + i);
 
         CellNode curr = head;
         CellNode prev = head;
 
-        for (int n = 0; n<=i; n++) {
+        for (int n = 0; n<i; n++) {
             prev = curr;
             curr = curr.next;
         }
@@ -123,36 +123,43 @@ public class CellList {
     }
 
     public void deleteFromStart() {
-        head = new CellNode(head.next.phone, head.next);
+        head = head.next;
         size--;
     }
 
     public void replaceAtIndex(CellPhone c, int i) {
         if (i >= size) return;
 
-        CellNode newNode = new CellNode(c, null);
+        //CellNode newNode = new CellNode(c, null);
         CellNode curr = head;
 
-        for (int n = 0; n<=i; n++) {
+        for (int n = 0; n<i; n++) {
             curr = curr.next;
         }
 
-        newNode.next = curr.next;
-        curr = newNode;
+        curr.phone = c;
     }
 
     public CellNode find(long serialNum) {
+        int iterations = 1;
         CellNode curr = head;
         while (curr != null) {
-            if (curr.phone.getSerialNum() == serialNum) return curr;
-            else curr = curr.next;
+            if (curr.phone.getSerialNum() == serialNum) {
+                System.out.println("Performed " + iterations + " iteration" + (iterations == 1 ? "." : "s."));
+                return curr.clone();
+            }
+            else {
+                curr = curr.next;
+                iterations++;
+            }
         }
+        System.out.println("Performed " + iterations + " iteration" + (iterations == 1 ? "." : "s."));
         return null;
     }
 
     public boolean contains(long serialNum) {
         CellNode curr = head;
-        while (curr != null) {
+        while (curr.phone != null) {
             if (curr.phone.getSerialNum() == serialNum) return true;
             else curr = curr.next;
         }
@@ -179,6 +186,8 @@ public class CellList {
     }
 
     public void show() {
+        System.out.println("The current size of the list is " + size + ". Here are the contents of the list:");
+
         CellNode curr = head;
         while (curr.next != null) {
             System.out.print(curr.phone + " --> \n");

@@ -10,7 +10,7 @@ public class SubDictionary {
     public static void main(String[] args) {;
         System.out.print("Enter file name: ");
 
-        ArrayList<String> dict = new ArrayList<String>();
+        ArrayList<String> dict = new ArrayList<>();
 
         Scanner input = null;
         PrintWriter output = null;
@@ -24,11 +24,15 @@ public class SubDictionary {
                 if (word.matches("([^\\d])+") && !word.matches("^[^A^I]$") && !dict.contains(word)) dict.add(word);
             }
             dict.sort(null);
+            // DO ARRALIST TRIM THING FIRST JUST IN CASE THERE ARE LESS THAN 10 ELEMENTS
             output.println("There are " + dict.size() + " entries in this sub-dictionary.");
 
             char letter = 64;
             for (String word : dict) {
-                if (word.charAt(0) != letter) output.println("\n" + ++letter + "\n===");
+                if (word.charAt(0) != letter) {
+                    while (word.charAt(0) != letter) letter++;
+                    output.println("\n" + letter + "\n===");
+                }
                 output.println(word);
             }
         }
