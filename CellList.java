@@ -1,34 +1,69 @@
+// -----------------------------------------------------
+// Assignment 4
+// Question: Part 2 (LinkedList)
+// Written by: Eli Samuel (40122277) and David Roper (40131739)
+// -----------------------------------------------------
+
+/**
+* Names
+* @author Eli Samuel 40122277
+* @author David Roper 40131739
+* Comp249
+* Assignment 4
+* Due Date: April 19th 2020
+*/
+
+/*
+* This the the CellList class a LinkedList with inner class CellNode, it a variables head and size while the
+* inner Cellnode has variables phone and next. each class have getters/setters appropriate constructors as well
+* as deep copy and clone methods. CellList has various LinkedList type methods such as show(), insertAtIndex, etc.
+*/
+
 import java.util.NoSuchElementException;
 
 public class CellList {
 
-    public class CellNode {
+    protected class CellNode {
         private CellPhone phone;
         private CellNode next;
 
+        /**
+        * default contructor
+        */
         public CellNode() {
             phone = null;
             next = null;
         }
 
-        // do we have to do this.phone = new Phone(phone) amd same for next?
+        /**
+        * @param phone a cellphone
+        * @param next a cellnode
+        */
         private CellNode(CellPhone phone, CellNode next) {
             this.phone = phone;
             this.next = next;
         }
 
+        /**
+        * @param c a cellnode
+        */
         public CellNode(CellNode c) {
+            if (c.next == null) return;
             phone = new CellPhone(c.phone, c.phone.getSerialNum());
-            next = new CellNode(c.phone, c.next);
+            next = c.next.clone();
         }
 
+        /**
+        * a cellnode clone method
+        * @return a Cellnode
+        */
         public CellNode clone() {
             return new CellNode(this);
         }
 
         /**
         * Returns value of phone
-        * @return
+        * @return phone a CellPhone
         */
         public CellPhone getPhone() {
             return phone;
@@ -36,7 +71,7 @@ public class CellList {
 
         /**
         * Sets new value of phone
-        * @param
+        * @param phone a CellPhone
         */
         public void setPhone(CellPhone phone) {
             this.phone = phone;
@@ -44,7 +79,7 @@ public class CellList {
 
         /**
         * Returns value of next
-        * @return
+        * @return next a CellNode
         */
         public CellNode getNext() {
             return next;
@@ -52,7 +87,7 @@ public class CellList {
 
         /**
         * Sets new value of next
-        * @param
+        * @param next a CellNode
         */
         public void setNext(CellNode next) {
             this.next = next;
@@ -72,78 +107,144 @@ public class CellList {
 
     /**
     * Default CellList constructor
+    * @param head a CellNode variable
+    * @param size and integer variable
     */
     public CellList(CellNode head, int size) {
         this.head = head;
         this.size = size;
     }
 
+    /**
+    * @param c a celllist
+    */
     public CellList(CellList c) {
-        head = c.head;
+        head = new CellNode(c.head);
         size = c.size;
     }
 
+    /**
+    * Clone method
+    * @return CellList
+    */
+    public CellList clone() {
+        return new CellList(this);
+    }
+
+    /**
+    * @param c a Cellphone
+    */
     public void addToStart(CellPhone c) {
         head = new CellNode(c, head);
         size++;
     }
 
-    public void insertAtIndex(CellPhone c, int i) throws NoSuchElementException {
-        if (i >= size) throw new NoSuchElementException("Error: Invalid index " + i);
+    /**
+    * @param c Cellphone
+    * @param i integer
+    */
+    public void insertAtIndex(CellPhone c, int i) {
+        if (i > size || size < 0) throw new NoSuchElementException("Error: Invalid index " + i);
+
 
         CellNode newNode = new CellNode(c, null);
         CellNode curr = head;
         CellNode prev = head;
 
-        for (int n = 0; n<i; n++) {
-            prev = curr;
-            curr = curr.next;
+        System.out.println("\nInserting new node with value " + c + " at index # " + i + ".");
+        // Handle the special case when insertion on head
+        if (i == 0) {
+            head = new CellNode(c, head);
+            size++;
         }
+        else {
+            for (int n = 0; n < i; n++) {
+                prev = curr;
+                curr = curr.next;
+            }
 
-        prev.next = newNode;
-        newNode.next = curr;
+            prev.next = newNode;
+            newNode.next = curr;
 
-        size++;
+            size++;
+        }
     }
 
-    public void deleteFromIndex(int i) throws NoSuchElementException {
+    /**
+    * @param i an integer
+    */
+    public void deleteFromIndex(int i) {
         if (i >= size) throw new NoSuchElementException("Error: Invalid index " + i);
 
-        CellNode curr = head;
-        CellNode prev = head;
-
-        for (int n = 0; n<i; n++) {
-            prev = curr;
-            curr = curr.next;
+        // Handle the special case when list has only one node
+        if (size == 1) {
+            System.out.println("\nDeleting the only node of the list at index # " + 0 + ".");
+            head = null;
+            size--;
+            return;
         }
 
-        prev.next = curr.next;
+        // Handle the special cases when deletion on head
+        if (i == 0) {
+            System.out.println("\nDeleting node with value " + head.phone + " from index # " + i + ".");
+            head = head.next;
+            size--;
+        }
+        // Deletion anywhere else, including tail
+        else {
+            CellNode curr = head;
+            CellNode prev = head;
 
-        size--;
+            for (int n = 0; n < i; n++) {
+                prev = curr;
+                curr = curr.next;
+            }
+            System.out.println("\nDeleting node with value " + curr.phone + " from index # " + i + ".");
+            prev.next = curr.next;
+
+            size--;
+        }
     }
 
+    /**
+    * deletefromstart deletes head
+    */
     public void deleteFromStart() {
         head = head.next;
         size--;
     }
 
+    /**
+    * @param c Cellphone
+    * @param i integer
+    */
     public void replaceAtIndex(CellPhone c, int i) {
         if (i >= size) return;
 
-        //CellNode newNode = new CellNode(c, null);
         CellNode curr = head;
 
         for (int n = 0; n<i; n++) {
             curr = curr.next;
         }
 
+        System.out.println("Replacing value at index # " + i + " from " + curr.phone + " to " + c + ". \n");
+
         curr.phone = c;
     }
 
+    /*
+    * Originally, this causes a privacy leak as you return a reference to the node, if the user changes
+    * anything in the phone, it changes it in the cell list, which is not wanted. To fix this, we returned
+    * a new node (with a different reference)
+    */
+    /**
+    * @param serialNum a long
+    * @return null or clone of phone
+    */
     public CellNode find(long serialNum) {
         int iterations = 1;
         CellNode curr = head;
-        while (curr != null) {
+        while (curr.phone != null) {
             if (curr.phone.getSerialNum() == serialNum) {
                 System.out.println("Performed " + iterations + " iteration" + (iterations == 1 ? "." : "s."));
                 return curr.clone();
@@ -153,10 +254,14 @@ public class CellList {
                 iterations++;
             }
         }
-        System.out.println("Performed " + iterations + " iteration" + (iterations == 1 ? "." : "s."));
+        System.out.println("Performed " + (iterations-1) + " iteration" + (iterations == 1 ? "." : "s."));
         return null;
     }
 
+    /**
+    * @param serialNum a long
+    * @return a boolean
+    */
     public boolean contains(long serialNum) {
         CellNode curr = head;
         while (curr.phone != null) {
@@ -166,6 +271,10 @@ public class CellList {
         return false;
     }
 
+    /**
+    * equals method for list
+    * @return a boolean value
+    */
     public boolean equals(Object o) {
         if (o == null) return false;
         else if (o.getClass()!=this.getClass()) return false;
@@ -185,7 +294,15 @@ public class CellList {
         }
     }
 
+    /**
+    *  show method prints out celllist
+    */
     public void show() {
+        if (size == 0) {
+            System.out.println("There is nothing to display; list is empty.");
+            return;
+        }
+
         System.out.println("The current size of the list is " + size + ". Here are the contents of the list:");
 
         CellNode curr = head;
