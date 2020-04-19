@@ -12,8 +12,8 @@ public class CellPhone {
         this.price = price;
     }
 
-    public CellPhone(CellPhone c){
-        this.serialNum = c.serialNum;
+    public CellPhone(CellPhone c, long serialNum){
+        this.serialNum = serialNum;
         this.brand = c.brand;
         this.year = c.year;
         this.price = c.price;
@@ -52,12 +52,12 @@ public class CellPhone {
 	}
 
     public CellPhone clone(){
-        return new CellPhone(this);
+        // PROMPT USER TO INPUT SERIAL NUMBER
+        return new CellPhone(this, this.serialNum);
     }
 
     public String toString(){
-        return "serial number: "+ serialNum +" brand: "+ brand + " manufacturing year: "+ year + " price: "
-        + price;
+        return "["+ serialNum + ": "+ brand + " " + price + ", " + year + "]";
     }
 
     public boolean equals(Object o){
