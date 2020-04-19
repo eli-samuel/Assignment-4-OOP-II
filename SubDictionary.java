@@ -7,7 +7,7 @@ import java.io.FileNotFoundException;
 
 public class SubDictionary {
 
-    public static void main(String[] args) {;
+    public static void main(String[] args) {
         System.out.print("Enter file name: ");
 
         ArrayList<String> dict = new ArrayList<String>();
