@@ -95,6 +95,11 @@ public class CellListUtilization {
 
         // testing deleteFromStart
         System.out.println("\nTesting delete from start:\n");
+        CellList list3 = new CellList();
+        list3.addToStart(new CellPhone(111111, "deleteFromStart test", 0, 2022));
+        list3.show();
+        list3.deleteFromStart();
+        list3.show();
         list1.deleteFromStart();
         list1.show();
         in.next();

@@ -174,7 +174,7 @@ public class CellList {
     * @param i an integer
     */
     public void deleteFromIndex(int i) {
-        if (i >= size) throw new NoSuchElementException("Error: Invalid index " + i);
+        if (i >= size || size < 0) throw new NoSuchElementException("Error: Invalid index " + i);
 
         // Handle the special case when list has only one node
         if (size == 1) {
@@ -210,8 +210,19 @@ public class CellList {
     * deletefromstart deletes head
     */
     public void deleteFromStart() {
-        head = head.next;
-        size--;
+        if (size == 0) {
+            System.out.println("Empty list, terminating program");
+            System.exit(0);
+        }
+
+        if (size == 1) {
+            head = null;
+            size--;
+        }
+        else {
+            head = head.next;
+            size--;
+        }
     }
 
     /**
@@ -306,7 +317,7 @@ public class CellList {
         System.out.println("The current size of the list is " + size + ". Here are the contents of the list:");
 
         CellNode curr = head;
-        while (curr.next != null) {
+        while (curr != null && curr.next != null) {
             System.out.print(curr.phone + " --> \n");
             curr = curr.next;
         }
