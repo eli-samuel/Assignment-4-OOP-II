@@ -168,17 +168,17 @@ public class CellList {
 
     public boolean equals(Object o) {
         if (o == null) return false;
-        else if (o.getClass()!=this.getClass()) return false;
+        else if (o.getClass() != this.getClass()) return false;
         else{
             CellList cList = (CellList) o;
             if (cList.size != this.size) return false; //this may fail
             else {
-                CellNode pos = head;
-                CellNode otherPos = cList.head;
-                while (pos.next != null) {
-                    if (!(pos.phone.equals(otherPos.phone))) return false;
-                    pos = pos.next;
-                    otherPos = otherPos.next;
+                CellNode curr = head;
+                CellNode othercurr = cList.head;
+                while (curr.next != null) {
+                    if (!(curr.phone.equals(othercurr.phone))) return false;
+                    curr = curr.next;
+                    othercurr = othercurr.next;
                 }
                 return true;
             }
